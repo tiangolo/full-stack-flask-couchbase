@@ -95,7 +95,6 @@ def route_users_post(
         email=email,
         full_name=full_name,
     )
-    bucket = get_default_bucket()
     user = upsert_user(bucket, user_in)
     if config.EMAILS_ENABLED:
         send_new_account_email(email_to=email, username=username, password=password)
