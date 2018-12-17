@@ -15,11 +15,19 @@ autoflake = "*"
 
 [packages]
 fastapi = "*"
-uvicorn = "*"
-pyjwt = "*"
-python-multipart = "*"
 email-validator = "*"
 requests = "*"
+flask = "*"
+flask-cors = "*"
+raven = {extras = ["flask"],version = "*"}
+celery = "==4.1.1"
+passlib = {extras = ["bcrypt"],version = "*"}
+flask-apispec = "*"
+flask-jwt-extended = "*"
+tenacity = "*"
+pydantic = "*"
+couchbase = "*"
+emails = "*"
 
 [requires]
 python_version = "3.6"

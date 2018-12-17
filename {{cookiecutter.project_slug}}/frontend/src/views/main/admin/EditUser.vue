@@ -57,7 +57,7 @@ import {
 @Component
 export default class EditUser extends Vue {
   public valid = true;
-  public name: string = '';
+  public username: string = '';
   public fullName: string = '';
   public email: string = '';
   public setPassword = false;
@@ -82,8 +82,8 @@ export default class EditUser extends Vue {
     this.password2 = '';
     this.$validator.reset();
     if (this.user) {
-      this.name = this.user.name;
-      this.fullName = this.user.human_name;
+      this.username = this.user.username;
+      this.fullName = this.user.full_name;
       this.email = this.user.email;
       this.userDisabled = this.user.disabled;
       this.availableRoles.forEach((role: string) => {
@@ -104,7 +104,7 @@ export default class EditUser extends Vue {
     if (await this.$validator.validateAll()) {
       const updatedProfile: IUserProfileUpdate = {};
       if (this.fullName) {
-        updatedProfile.human_name = this.fullName;
+        updatedProfile.full_name = this.fullName;
       }
       if (this.email) {
         updatedProfile.email = this.email;
@@ -119,7 +119,7 @@ export default class EditUser extends Vue {
       if (this.setPassword) {
         updatedProfile.password = this.password1;
       }
-      const payload = { name: this.name, user: updatedProfile };
+      const payload = { username: this.username, user: updatedProfile };
       await dispatchUpdateUser(this.$store, payload);
       this.$router.push('/main/admin/users');
     }

@@ -1,13 +1,13 @@
 # Import installed packages
+# Types
+from typing import Dict, List
+
 from apispec import APISpec
 from flask_apispec import FlaskApiSpec
 
+from ...core import config
 # Import app code
 from ...main import app
-from ...core import config
-
-# Types
-from typing import List, Dict
 
 security_definitions = {
     "bearer": {

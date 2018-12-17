@@ -1,27 +1,27 @@
-from typing import Union
 import logging
+from datetime import datetime, timedelta
 from pathlib import Path
-from datetime import timedelta, datetime
+from typing import Union
 
-import jwt
-from jwt.exceptions import InvalidTokenError
 import emails
+import jwt
 from emails.template import JinjaTemplate
+from jwt.exceptions import InvalidTokenError
 
 from app.core.config import (
+    EMAIL_RESET_TOKEN_EXPIRE_HOURS,
+    EMAIL_TEMPLATES_DIR,
+    EMAILS_ENABLED,
+    EMAILS_FROM_EMAIL,
+    EMAILS_FROM_NAME,
+    PROJECT_NAME,
+    SECRET_KEY,
+    SERVER_HOST,
     SMTP_HOST,
     SMTP_PASSWORD,
     SMTP_PORT,
     SMTP_TLS,
     SMTP_USER,
-    EMAILS_FROM_EMAIL,
-    EMAILS_FROM_NAME,
-    PROJECT_NAME,
-    EMAIL_RESET_TOKEN_EXPIRE_HOURS,
-    SERVER_HOST,
-    EMAIL_TEMPLATES_DIR,
-    SECRET_KEY,
-    EMAILS_ENABLED
 )
 
 password_reset_jwt_subject = "preset"
@@ -61,7 +61,7 @@ def send_reset_password_email(email_to: str, username: str, token: str):
     subject = f"{PROJECT_NAME} - Password recovery for user {username}"
     with open(Path(EMAIL_TEMPLATES_DIR) / "reset_password.html") as f:
         template_str = f.read()
-    if hasattr(token, 'decode'):
+    if hasattr(token, "decode"):
         use_token = token.decode()
     else:
         use_token = token
@@ -108,18 +108,18 @@ def generate_password_reset_token(username):
         {
             "exp": exp,
             "nbf": now,
-            "sub": password_reset_jwt_subject,    
+            "sub": password_reset_jwt_subject,
             "username": username,
         },
         SECRET_KEY,
-        algorithm='HS256',
+        algorithm="HS256",
     )
     return encoded_jwt
 
 
 def verify_password_reset_token(token) -> Union[str, bool]:
     try:
-        decoded_token = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
+        decoded_token = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
         assert decoded_token["sub"] == password_reset_jwt_subject
         return decoded_token["username"]
     except InvalidTokenError:

@@ -8,8 +8,8 @@ from .base import BaseSchema
 
 
 class UserSchema(BaseSchema):
-    name = fields.Str()
-    human_name = fields.Str()
+    username = fields.Str()
+    full_name = fields.Str()
     email = fields.Str()
     admin_roles = fields.List(fields.Str())
     admin_channels = fields.List(fields.Str())

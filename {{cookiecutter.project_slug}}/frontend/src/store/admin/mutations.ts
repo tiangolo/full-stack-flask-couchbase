@@ -6,7 +6,7 @@ export const mutations = {
         state.users = payload;
     },
     setUser(state: AdminState, payload: IUserProfile) {
-        const users = state.users.filter((user: IUserProfile) => user.name !== payload.name);
+        const users = state.users.filter((user: IUserProfile) => user.username !== payload.username);
         users.push(payload);
         state.users = users;
     },

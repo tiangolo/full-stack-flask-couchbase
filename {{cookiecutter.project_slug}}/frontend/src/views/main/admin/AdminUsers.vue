@@ -9,9 +9,9 @@
     </v-toolbar>
     <v-data-table :headers="headers" :items="users">
       <template slot="items" slot-scope="props">
-        <td>{{ props.item.name }}</td>
+        <td>{{ props.item.username }}</td>
         <td>{{ props.item.email }}</td>
-        <td>{{ props.item.human_name }}</td>
+        <td>{{ props.item.full_name }}</td>
         <td>{{ props.item.disabled }}</td>
         <td>
           <v-chip v-for="role in props.item.admin_roles" :key="role">{{role}}</v-chip>
@@ -19,7 +19,7 @@
         <td class="justify-center layout px-0">
           <v-tooltip top>
             <span>Edit</span>
-            <v-btn slot="activator" flat :to="{name: 'main-admin-users-edit', params: {name: props.item.name}}">
+            <v-btn slot="activator" flat :to="{name: 'main-admin-users-edit', params: {name: props.item.username}}">
               <v-icon>edit</v-icon>
             </v-btn>
           </v-tooltip>
@@ -39,9 +39,9 @@ import { readAdminUsers, dispatchGetUsers } from '@/store/admin/accessors';
 export default class UserProfile extends Vue {
   public headers = [
     {
-      text: 'Name',
+      text: 'Username',
       sortable: true,
-      value: 'name',
+      value: 'username',
       align: 'left',
     },
     {
@@ -53,7 +53,7 @@ export default class UserProfile extends Vue {
     {
       text: 'Full Name',
       sortable: true,
-      value: 'human_name',
+      value: 'full_name',
       align: 'left',
     },
     {
@@ -69,7 +69,7 @@ export default class UserProfile extends Vue {
     },
     {
       text: 'Actions',
-      value: 'name',
+      value: 'username',
     },
   ];
   get users() {

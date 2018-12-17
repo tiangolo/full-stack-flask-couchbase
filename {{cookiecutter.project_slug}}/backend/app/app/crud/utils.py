@@ -1,13 +1,13 @@
+from enum import Enum
+from typing import Sequence, Type, Union
+
 from couchbase.bucket import Bucket
-from couchbase.n1ql import N1QLQuery
+from couchbase.n1ql import CONSISTENCY_REQUEST, N1QLQuery
 
 from app.core.config import COUCHBASE_BUCKET_NAME
 
-from typing import Sequence, Union
-from enum import Enum
 
-
-def ensure_enums_to_strs(items: Sequence[Union[Enum, str]]):
+def ensure_enums_to_strs(items: Union[Sequence[Union[Enum, str]], Type[Enum]]):
     str_items = []
     for item in items:
         if isinstance(item, Enum):
@@ -19,9 +19,9 @@ def ensure_enums_to_strs(items: Sequence[Union[Enum, str]]):
 
 def get_all_documents_by_type(bucket: Bucket, *, doc_type: str, skip=0, limit=100):
     query_str = f"SELECT *, META().id as id FROM {COUCHBASE_BUCKET_NAME} WHERE type = $type LIMIT $limit OFFSET $skip;"
-    doc_type = "userprofile"
     q = N1QLQuery(
         query_str, bucket=COUCHBASE_BUCKET_NAME, type=doc_type, limit=limit, skip=skip
     )
+    q.consistency = CONSISTENCY_REQUEST
     result = bucket.n1ql_query(q)  # type: N1QLRequest
     return result

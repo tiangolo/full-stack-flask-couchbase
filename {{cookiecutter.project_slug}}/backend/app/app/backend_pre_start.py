@@ -1,6 +1,6 @@
 import logging
 
-from tenacity import retry, stop_after_attempt, wait_fixed, before_log, after_log
+from tenacity import after_log, before_log, retry, stop_after_attempt, wait_fixed
 
 from app.db.init_db import init_db
 

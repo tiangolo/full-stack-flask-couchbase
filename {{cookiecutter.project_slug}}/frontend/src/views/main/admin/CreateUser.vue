@@ -7,7 +7,7 @@
       <v-card-text>
         <template>
           <v-form v-model="valid" ref="form" lazy-validation>
-            <v-text-field label="Username" v-model="name" required></v-text-field>
+            <v-text-field label="Username" v-model="username" required></v-text-field>
             <v-text-field label="Full Name" v-model="fullName" required></v-text-field>
             <v-text-field label="E-mail" type="email" v-model="email" v-validate="'required|email'" data-vv-name="email" :error-messages="errors.collect('email')" required></v-text-field>
             <div class="subheading secondary--text text--lighten-2">Roles</div>
@@ -46,7 +46,7 @@ import { dispatchGetUsers, dispatchGetRoles, dispatchCreateUser, readAdminRoles 
 @Component
 export default class EditUser extends Vue {
   public valid = false;
-  public name: string = '';
+  public username: string = '';
   public fullName: string = '';
   public email: string = '';
   public setPassword = false;
@@ -65,7 +65,7 @@ export default class EditUser extends Vue {
   public reset() {
     this.password1 = '';
     this.password2 = '';
-    this.name = '';
+    this.username = '';
     this.fullName = '';
     this.email = '';
     this.userDisabled = false;
@@ -82,10 +82,10 @@ export default class EditUser extends Vue {
   public async submit() {
     if (await this.$validator.validateAll()) {
       const updatedProfile: IUserProfileCreate = {
-        name: this.name,
+        username: this.username,
       };
       if (this.fullName) {
-        updatedProfile.human_name = this.fullName;
+        updatedProfile.full_name = this.fullName;
       }
       if (this.email) {
         updatedProfile.email = this.email;

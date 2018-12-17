@@ -1,9 +1,9 @@
 # Import installed packages
 from flask_cors import CORS
 
+from app.core import config
 # Import app code
 from app.main import app
-from app.core import config
 
 origins = []
 

@@ -1,17 +1,18 @@
 from couchbase import LOCKMODE_WAIT
-from couchbase.cluster import Cluster
-from couchbase.cluster import PasswordAuthenticator
-from app.db.couchbase_utils import get_cluster_couchbase_url
-from app.core.config import (
-    COUCHBASE_USER,
-    COUCHBASE_PASSWORD,
-    COUCHBASE_BUCKET_NAME,
-    COUCHBASE_HOST,
-    COUCHBASE_PORT,
-)
-
 # Types
 from couchbase.bucket import Bucket
+from couchbase.cluster import Cluster, PasswordAuthenticator
+
+from app.core.config import (
+    COUCHBASE_BUCKET_NAME,
+    COUCHBASE_HOST,
+    COUCHBASE_N1QL_TIMEOUT_SECS,
+    COUCHBASE_OPERATION_TIMEOUT_SECS,
+    COUCHBASE_PASSWORD,
+    COUCHBASE_PORT,
+    COUCHBASE_USER,
+)
+from app.db.couchbase_utils import get_cluster_couchbase_url
 
 
 def get_default_bucket():
@@ -36,10 +37,18 @@ def get_cluster(username: str, password: str, host="couchbase", port="8091"):
 
 
 def get_bucket(
-    username: str, password: str, bucket_name: str, host="couchbase", port="8091"
+    username: str,
+    password: str,
+    bucket_name: str,
+    host="couchbase",
+    port="8091",
+    timeout: int = COUCHBASE_OPERATION_TIMEOUT_SECS,
+    n1ql_timeout: int = COUCHBASE_N1QL_TIMEOUT_SECS,
 ):
     cluster = get_cluster(username, password, host=host, port=port)
     bucket: Bucket = cluster.open_bucket(bucket_name, lockmode=LOCKMODE_WAIT)
+    bucket.timeout = timeout
+    bucket.n1ql_timeout = n1ql_timeout
     return bucket
 
 

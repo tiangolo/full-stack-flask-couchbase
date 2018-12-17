@@ -23,12 +23,12 @@ export const actions = {
             await dispatchCheckApiError(context, error);
         }
     },
-    async actionUpdateUser(context: MainContext, payload: { name: string, user: IUserProfileUpdate }) {
+    async actionUpdateUser(context: MainContext, payload: { username: string, user: IUserProfileUpdate }) {
         try {
             const loadingNotification = { content: 'saving', showProgress: true };
             commitAddNotification(context, loadingNotification);
             const response = (await Promise.all([
-                api.updateUser(context.rootState.main.token, payload.name, payload.user),
+                api.updateUser(context.rootState.main.token, payload.username, payload.user),
                 await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),
             ]))[0];
             commitSetUser(context, response.data);
