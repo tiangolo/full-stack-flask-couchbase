@@ -69,7 +69,7 @@ The changes to those files only affect the local development environment, not th
 
 For example, the directory with the backend code is mounted as a Docker "host volume" (in the file `docker-compose.dev.volumes.yml`), mapping the code you change live to the directory inside the container. That allows you to test your changes right away, without having to build the Docker image again. It should only be done during development, for production, you should build the Docker image with a recent version of the backend code. But during development, it allows you to iterate very fast.
 
-There is also a commented out `command` override (in the file `docker-compose.dev.command.yml`), if you want to enable it, uncomment it. It makes the backend container run a process that does "nothing", but keeps the process running. That allows you to get inside your living container and run commands inside, for example a Python interpreter to test installed dependencies, or start the Flask development server that reloads when it detectes changes.
+There is also a commented out `command` override (in the file `docker-compose.dev.command.yml`), if you want to enable it, uncomment it. It makes the backend container run a process that does "nothing", but keeps the process running. That allows you to get inside your living container and run commands inside, for example a Python interpreter to test installed dependencies, or start the development server that reloads when it detectes changes.
 
 To get inside the container with a `bash` session you can start the stack with:
 
@@ -91,25 +91,24 @@ root@7f2607af31c3:/app#
 
 that means that you are in a `bash` session inside your container, as a `root` user, under the `/app` directory.
 
-There is also a declaration of an environment variable `$RUN` to run the Flask development server (in the file `docker-compose.dev.env.yml`), with all the configurations to make it work in Docker. You can "run" that environment variable and it will start that Flask development server with:
+There is also a script `backend-live.sh` to run the debug live reloading server. You can run that script from inside the container with:
 
 ```bash
-$RUN
+bash ./backend-live.sh
 ```
 
 ...it will look like:
 
 ```bash
-root@7f2607af31c3:/app# $RUN
+root@7f2607af31c3:/app# bash ./backend-live.sh
 ```
 
-and then hit enter. That runs the Flask development server that auto reloads when it detects code changes.
+and then hit enter. That runs the debugging server that auto reloads when it detects code changes.
 
 Nevertheless, if it doesn't detect a change but a syntax error, it will just stop with an error. But as the container is still alive and you are in a Bash session, you can quickly restart it after fixing the error, running the same command ("up arrow" and "Enter").
 
-...this previous detail is what makes it useful to have the container alive doing nothing and then, in a Bash session, make it run the Flask development server.
+...this previous detail is what makes it useful to have the container alive doing nothing and then, in a Bash session, make it run the debugging server.
 
-The Celery worker has a `$RUN` variable too, running the Celery worker, so that you can test it while being inside the container and debug errors, etc.
 
 ### Backend tests
 
