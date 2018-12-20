@@ -21,7 +21,8 @@ Generate a backend and frontend stack using Python, including interactive API do
   * Basic starting functionality for users and roles (modify and remove as you need)
   * CORS (Cross Origin Resource Sharing)
 * Celery worker that can import and use code from the rest of the backend selectively (you don't have to install the complete app in each worker)
-* NoSQL Couchbase database that supports direct synchronization via Couchbase Sync Gateway for offline-first applications
+* NoSQL Couchbase database that supports direct synchronization via Couchbase Sync Gateway for offline-first applications.
+* Full Text Search integrated, using Couchbase.
 * REST backend tests based on Pytest, integrated with Docker, so you can test the full API interaction, independent on the database. As it runs in Docker, it can build a new data store from scratch each time (so you can use ElasticSearch, MongoDB, or whatever you want, and just test that the API works).
 * Easy Python integration with Jupyter Kernels for remote or in-Docker development with extensions like Atom Hydrogen or Visual Studio Code Jupyter
 * Vue frontend:

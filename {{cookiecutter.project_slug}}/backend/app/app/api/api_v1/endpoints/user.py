@@ -13,6 +13,7 @@ from app.crud.user import (
     check_if_user_is_active,
     check_if_user_is_superuser,
     get_user,
+    search_users,
     get_users,
     update_user,
     upsert_user,
@@ -45,6 +46,29 @@ def route_users_get(skip=0, limit=100):
         abort(400, "The user doesn't have enough privileges")
     bucket = get_default_bucket()
     users = get_users(bucket, skip=skip, limit=limit)
+    return users
+
+
+
+@docs.register
+@doc(description="Search users", security=security_params, tags=["users"])
+@app.route(f"{config.API_V1_STR}/users/search/", methods=["GET"])
+@use_kwargs(
+    {"q": fields.Str(required=True), "skip": fields.Int(default=0), "limit": fields.Int(default=100)},
+    locations=["query"],
+)
+@marshal_with(UserSchema(many=True))
+@jwt_required
+def route_users_search_get(q, skip=0, limit=100):
+    current_user = get_current_user()
+    if not current_user:
+        abort(400, "Could not authenticate user with provided token")
+    elif not check_if_user_is_active(current_user):
+        abort(400, "Inactive user")
+    elif not check_if_user_is_superuser(current_user):
+        abort(400, "The user doesn't have enough privileges")
+    bucket = get_default_bucket()
+    users = search_users(bucket=bucket, query_string=q, skip=skip, limit=limit)
     return users
 
 
@@ -161,7 +185,7 @@ def route_users_put(
 @marshal_with(UserSchema())
 @jwt_required
 def route_users_me_put(*, password=None, full_name=None, email=None):
-    current_user: UserStored = get_current_user()
+    current_user = get_current_user()
 
     if not current_user:
         abort(400, "Could not authenticate user with provided token")
