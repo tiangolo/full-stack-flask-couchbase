@@ -37,6 +37,7 @@ def get_documents_by_keys(bucket: Bucket, *, keys: List[str], skip=0, limit=100)
     q = N1QLQuery(
         query_str, bucket=COUCHBASE_BUCKET_NAME, keys=keys, limit=limit, skip=skip
     )
+    q.consistency = CONSISTENCY_REQUEST
     result = bucket.n1ql_query(q)
     return result
 

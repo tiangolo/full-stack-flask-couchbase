@@ -1,7 +1,4 @@
-# Import standard library modules
-
-# Import installed modules
-# # Import installed packages
+from fastapi.encoders import jsonable_encoder
 from flask import abort
 from flask_apispec import doc, marshal_with, use_kwargs
 from flask_jwt_extended import get_current_user, jwt_required
@@ -13,16 +10,14 @@ from app.crud.user import (
     check_if_user_is_active,
     check_if_user_is_superuser,
     get_user,
-    search_users,
     get_users,
+    search_users,
     update_user,
     upsert_user,
 )
 from app.db.database import get_default_bucket
-# Import app code
 from app.main import app
 from app.models.user import UserInCreate, UserInUpdate
-# Import Schemas
 from app.schemas.user import UserSchema
 from app.utils import send_new_account_email
 
@@ -191,7 +186,7 @@ def route_users_me_put(*, password=None, full_name=None, email=None):
         abort(400, "Could not authenticate user with provided token")
     elif not check_if_user_is_active(current_user):
         abort(400, "Inactive user")
-    user_in = UserInUpdate(**current_user.json_dict())
+    user_in = UserInUpdate(jsonable_encoder(current_user))
     if password is not None:
         user_in.password = password
     if full_name is not None:

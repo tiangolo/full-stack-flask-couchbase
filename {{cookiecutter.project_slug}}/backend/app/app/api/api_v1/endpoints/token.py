@@ -1,7 +1,5 @@
-# Import standard library
 from datetime import timedelta
 
-# Import installed modules
 from flask import abort
 from flask_apispec import doc, marshal_with, use_kwargs
 from flask_jwt_extended import create_access_token, get_current_user, jwt_required
@@ -16,11 +14,9 @@ from app.crud.user import (
     update_user,
 )
 from app.db.database import get_default_bucket
-# Import app code
 from app.main import app
 from app.models.user import UserInUpdate
 from app.schemas.msg import MsgSchema
-# Import Schemas
 from app.schemas.token import TokenSchema
 from app.schemas.user import UserSchema
 from app.utils import (

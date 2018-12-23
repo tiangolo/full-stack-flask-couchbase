@@ -1,12 +1,9 @@
-# Import installed packages
-# Types
 from typing import Dict, List
 
 from apispec import APISpec
 from flask_apispec import FlaskApiSpec
 
 from ...core import config
-# Import app code
 from ...main import app
 
 security_definitions = {

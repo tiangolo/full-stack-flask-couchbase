@@ -129,7 +129,7 @@ def check_if_user_is_active(user: UserInDB):
 
 
 def check_if_user_is_superuser(user: UserInDB):
-    return RoleEnum.superuser.value in ensure_enums_to_strs(user.admin_roles)
+    return RoleEnum.superuser.value in ensure_enums_to_strs(user.admin_roles or [])
 
 
 def get_users(bucket: Bucket, *, skip=0, limit=100):

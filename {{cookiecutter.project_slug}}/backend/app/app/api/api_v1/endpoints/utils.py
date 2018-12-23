@@ -1,4 +1,3 @@
-# Import installed packages
 from flask import abort
 from flask_apispec import doc, marshal_with, use_kwargs
 from flask_jwt_extended import get_current_user, jwt_required
@@ -8,13 +7,9 @@ from app.api.api_v1.api_docs import docs, security_params
 from app.core import config
 from app.core.celery_app import celery_app
 from app.crud.user import check_if_user_is_superuser
-# Import app code
 from app.main import app
-# Import Schemas
 from app.schemas.msg import MsgSchema
 from app.utils import send_test_email
-
-# Import models
 
 
 @docs.register
