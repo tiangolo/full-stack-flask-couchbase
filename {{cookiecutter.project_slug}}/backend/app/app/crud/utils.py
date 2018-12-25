@@ -51,6 +51,15 @@ def results_to_model(results_from_couchbase: list, *, doc_model: Type[BaseModel]
     return items
 
 
+def search_results_to_model(results_from_couchbase: list, *, doc_model: Type[BaseModel]):
+    items = []
+    for doc in results_from_couchbase:
+        data = doc["fields"]
+        doc = doc_model(**data)
+        items.append(doc)
+    return items
+
+
 def get_docs(
     bucket: Bucket, *, doc_type: str, doc_model=Type[BaseModel], skip=0, limit=100
 ):
@@ -84,6 +93,22 @@ def search_docs_get_doc_ids(
     return doc_ids
 
 
+def search_get_results(
+    bucket: Bucket,
+    *,
+    query_string: str,
+    index_name: str,
+    skip: int = 0,
+    limit: int = 100,
+):
+    query = QueryStringQuery(query_string)
+    hits = bucket.search(index_name, query, fields=["*"], skip=skip, limit=limit)
+    docs = []
+    for hit in hits:
+        docs.append(hit)
+    return docs
+
+
 def search_docs(
     bucket: Bucket,
     *,
@@ -104,3 +129,22 @@ def search_docs(
         bucket=bucket, keys=keys, skip=skip, limit=limit
     )
     return results_to_model(doc_results, doc_model=doc_model)
+
+
+def search_results(
+    bucket: Bucket,
+    *,
+    query_string: str,
+    index_name: str,
+    doc_model: Type[BaseModel],
+    skip=0,
+    limit=100,
+):
+    doc_results = search_get_results(
+        bucket=bucket,
+        query_string=query_string,
+        index_name=index_name,
+        skip=skip,
+        limit=limit,
+    )
+    return search_results_to_model(doc_results, doc_model=doc_model)

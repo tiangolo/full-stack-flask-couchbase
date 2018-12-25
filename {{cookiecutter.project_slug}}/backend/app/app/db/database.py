@@ -1,5 +1,4 @@
 from couchbase import LOCKMODE_WAIT
-# Types
 from couchbase.bucket import Bucket
 from couchbase.cluster import Cluster, PasswordAuthenticator
 
