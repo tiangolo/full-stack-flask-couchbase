@@ -6,7 +6,7 @@ RUN echo "deb http://packages.couchbase.com/ubuntu stretch stretch/main" > /etc/
 RUN apt-get update && apt-get install -y libcouchbase-dev build-essential
 
 # Also install fastapi to get the jsonable_encoder
-RUN pip install flask flask-cors raven[flask] celery==4.1.1 passlib[bcrypt] flask-apispec flask-jwt-extended tenacity requests pydantic couchbase emails fastapi
+RUN pip install flask flask-cors raven[flask] celery==4.2.1 passlib[bcrypt] flask-apispec flask-jwt-extended tenacity requests pydantic couchbase emails fastapi
 
 # For development, Jupyter remote kernel, Hydrogen
 # Using inside the container:
