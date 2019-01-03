@@ -12,4 +12,3 @@ services:
     image: totem/celery-flower-docker
     env_file:
       - env-flower.env
-
