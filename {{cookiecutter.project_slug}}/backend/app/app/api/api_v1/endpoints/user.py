@@ -44,12 +44,15 @@ def route_users_get(skip=0, limit=100):
     return users
 
 
-
 @docs.register
 @doc(description="Search users", security=security_params, tags=["users"])
 @app.route(f"{config.API_V1_STR}/users/search/", methods=["GET"])
 @use_kwargs(
-    {"q": fields.Str(required=True), "skip": fields.Int(default=0), "limit": fields.Int(default=100)},
+    {
+        "q": fields.Str(required=True),
+        "skip": fields.Int(default=0),
+        "limit": fields.Int(default=100),
+    },
     locations=["query"],
 )
 @marshal_with(UserSchema(many=True))

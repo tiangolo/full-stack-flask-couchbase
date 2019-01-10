@@ -26,6 +26,7 @@ from app.models.user import UserInCreate, UserInDB, UserInUpdate, UserSyncIn
 
 full_text_index_name = "users"
 
+
 def get_user_doc_id(username):
     return f"userprofile::{username}"
 
@@ -142,6 +143,7 @@ def get_users(bucket: Bucket, *, skip=0, limit=100):
     )
     return users
 
+
 def search_user_docs(bucket: Bucket, *, query_string: str, skip=0, limit=100):
     users = search_docs(
         bucket=bucket,
@@ -152,6 +154,7 @@ def search_user_docs(bucket: Bucket, *, query_string: str, skip=0, limit=100):
         limit=limit,
     )
     return users
+
 
 def search_users(bucket: Bucket, *, query_string: str, skip=0, limit=100):
     users = search_results_by_type(
