@@ -25,6 +25,11 @@ Generate a backend and frontend stack using Python, including interactive API do
 * Full Text Search integrated, using Couchbase.
 * REST backend tests based on Pytest, integrated with Docker, so you can test the full API interaction, independent on the database. As it runs in Docker, it can build a new data store from scratch each time (so you can use ElasticSearch, MongoDB, or whatever you want, and just test that the API works).
 * Easy Python integration with Jupyter Kernels for remote or in-Docker development with extensions like Atom Hydrogen or Visual Studio Code Jupyter
+* Email notifications for account creation and password recovery, compatible with:
+    * Mailgun
+    * SparkPost
+    * SendGrid
+    * ...any other provider that can generate standard SMTP credentials.
 * Vue frontend:
   * Generated with Vue CLI
   * JWT Authentication handling
