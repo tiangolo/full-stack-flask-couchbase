@@ -6,7 +6,7 @@ RUN echo "deb http://packages.couchbase.com/ubuntu stretch stretch/main" > /etc/
 RUN apt-get update && apt-get install -y libcouchbase-dev build-essential
 
 # Also install fastapi to get the jsonable_encoder
-RUN pip install raven celery==4.2.1 passlib[bcrypt] tenacity requests pydantic couchbase emails fastapi
+RUN pip install raven celery==4.2.1 passlib[bcrypt]==1.7.1 tenacity==5.0.3 requests==2.21.0 couchbase emails==0.5.15 fastapi==0.2.0 pydantic==0.18.2
 
 # For development, Jupyter remote kernel, Hydrogen
 # Using inside the container:
