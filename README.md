@@ -20,6 +20,12 @@ There is also a FastAPI project generator based on PostgreSQL instead of Couchba
 * Writing code in **FastAPI** is about 200% to 300% faster. Because you write a lot less code, it is designed for web APIs, and you have auto-complete everywhere.
 * About 40% of the human (developer) induced errors can be reduced (**FastAPI** does a lot of the data validation, conversion and documentation for you).
 
+## ⚠️ DEPRECATION WARNING ⚠️
+
+As **FastAPI** and the equivalent project generator provide a much better solution to all the use cases this project was built for, all the future development will be done there.
+
+You are still free to use this project, but it won't receive any new features, changes, or bug fixes.
+
 ---
 
 ## Features
