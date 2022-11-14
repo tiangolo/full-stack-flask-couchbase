@@ -1,3 +1,11 @@
+## 🚨 DEPRECATION WARNING 🚨
+
+As [**FastAPI**](https://github.com/tiangolo/fastapi) and the equivalent project generators provide a much better solution to all the use cases this project was built for, all the future development will be done there.
+
+If you are starting a new project from scratch, check the alternatives at the [FastAPI docs: Project Generation](https://fastapi.tiangolo.com/project-generation/).
+
+You are still free to use this project, but it won't receive any new features, changes, or bug fixes.
+
 # Full Stack Flask Couchbase - project generator
 
 [![Build Status](https://travis-ci.org/tiangolo/full-stack-flask-couchbase.svg?branch=master)](https://travis-ci.org/tiangolo/full-stack-flask-couchbase)
@@ -19,12 +27,6 @@ There is also a FastAPI project generator based on PostgreSQL instead of Couchba
 * **FastAPI** (and its project generators), would give you about 800% (8x) the performance achievable with this one.
 * Writing code in **FastAPI** is about 200% to 300% faster. Because you write a lot less code, it is designed for web APIs, and you have auto-complete everywhere.
 * About 40% of the human (developer) induced errors can be reduced (**FastAPI** does a lot of the data validation, conversion and documentation for you).
-
-## ⚠️ DEPRECATION WARNING ⚠️
-
-As **FastAPI** and the equivalent project generator provide a much better solution to all the use cases this project was built for, all the future development will be done there.
-
-You are still free to use this project, but it won't receive any new features, changes, or bug fixes.
 
 ---
 
